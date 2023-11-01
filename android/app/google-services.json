@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "506948131993",
+    "project_id": "tesdsw22",
+    "storage_bucket": "tesdsw22.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506948131993:android:c557729d26379bd849ac08",
+        "android_client_info": {
+          "package_name": "com.katya.conexionfirebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaNCNeNVIggerp5mvIr2tBWIyyIr4PIZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
