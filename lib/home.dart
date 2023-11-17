@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               leading: Icon(Icons.assignment),
-              title: Text('Historial de los Pacientes'),
+              title: Text('Historial de los  pacientes'),
               onTap: () {
                 _onItemTapped(2);
                 Navigator.pop(context);
@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               leading: Icon(Icons.description),
-              title: Text('queda  pendiente '),
+              title: Text('Historial del paciente'),
               onTap: () {
                 _onItemTapped(3);
                 Navigator.pop(context);
