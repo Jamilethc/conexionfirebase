@@ -118,42 +118,36 @@ class PaginaInicio extends StatelessWidget {
 }
 
 class LoginForm extends StatefulWidget {
+  @override
+  _LoginFormState createState() => _LoginFormState();
+}
 
- class LoginFormState extends State  <LoginForm> {
+class _LoginFormState extends State<LoginForm> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   void _login() {
-    // Lógica de autenticación aquí...
-  };
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(16.0), // Puedes ajustar el valor aquí según tu preferencia
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextFormField(
-            controller: _usernameController,
-            decoration: InputDecoration(labelText: 'Usuario'),
-          ),
-          SizedBox(height: 16),
-          TextFormField(
-            controller: _passwordController,
-            decoration: InputDecoration(labelText: 'Contraseña'),
-            obscureText: true,
-          ),
-          SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: _login,
-            child: Text('Iniciar sesión'),
-          ),
-        ],
-      ),
-    );
+    String username = _usernameController.text;
+    String password = _passwordController.text;
+
+    // Aquí puedes agregar lógica para autenticar al usuario
+    // Por ahora, simplemente mostramos un mensaje en la consola
+    print('Usuario: $username');
+    print('Contraseña: $password');
+
+    // Lógica para redirigir a la pantalla de ingreso de pacientes si el inicio de sesión es exitoso
+    if (username == 'usuario' && password == 'contraseña') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => IngresarPacientes()),
+      );
+    } else {
+      // Si las credenciales no son válidas, muestra un mensaje de error
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Credenciales inválidas')),
+      );
+    }
   }
- }
-  
 
   @override
   Widget build(BuildContext context) {
