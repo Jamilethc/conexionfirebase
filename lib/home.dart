@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
     PaginaInicio(),
     IngresarPacientes(),
     IngresarDatosPaciente(),
-    Page3(),
+    
   ];
 
   void _onItemTapped(int index) {
@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               leading: Icon(Icons.home),
-              title: Text('Inicio'),
+              title: Text('Login'),
               onTap: () {
                 _onItemTapped(0);
                 Navigator.pop(context);
@@ -89,13 +89,14 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.description),
-              title: Text('queda  pendiente '),
-              onTap: () {
-                _onItemTapped(3);
-                Navigator.pop(context);
-              },
-            ),
+  leading: Icon(Icons.description),
+  title: Text('Queda Pendiente'),
+  onTap: () {
+    _showPendienteAlert(context);
+    Navigator.pop(context);
+  },
+),
+
           ],
         ),
       ),
@@ -103,14 +104,74 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+
 class PaginaInicio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Contenido de la Página de Inicio'),
+    return LoginForm(); // Reemplaza el texto con el formulario de inicio de sesión
+  }
+}
+
+class LoginForm extends StatefulWidget {
+  @override
+  _LoginFormState createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _login() {
+    String username = _usernameController.text;
+    String password = _passwordController.text;
+
+    // Aquí puedes agregar lógica para autenticar al usuario
+    // Por ahora, simplemente mostramos un mensaje en la consola
+    print('Usuario: $username');
+    print('Contraseña: $password');
+
+    // Lógica para redirigir a la pantalla de ingreso de pacientes si el inicio de sesión es exitoso
+    if (username == 'usuario' && password == 'contraseña') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => IngresarPacientes()),
+      );
+    } else {
+      // Si las credenciales no son válidas, muestra un mensaje de error
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Credenciales inválidas')),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextFormField(
+            controller: _usernameController,
+            decoration: InputDecoration(labelText: 'Usuario'),
+          ),
+          SizedBox(height: 16),
+          TextFormField(
+            controller: _passwordController,
+            decoration: InputDecoration(labelText: 'Contraseña'),
+            obscureText: true,
+          ),
+          SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: _login,
+            child: Text('Iniciar Sesión'),
+          ),
+        ],
+      ),
     );
   }
 }
+
 
 class IngresarPacientes extends StatefulWidget {
   @override
@@ -248,11 +309,23 @@ class IngresarDatosPaciente extends StatelessWidget {
   getDatos() {}
 }
 
-class Page3 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text('Contenido de Historial del paciente'),
-    );
-  }
+void _showPendienteAlert(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Queda Pendiente"),
+        content: Text("Esta funcionalidad está pendiente de implementación"),
+        actions: <Widget>[
+          TextButton(
+            child: Text("Cerrar"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
+
