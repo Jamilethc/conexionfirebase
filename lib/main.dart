@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'hi ',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: Color.fromARGB(255, 116, 184, 107)5)),
+        colorScheme:
+            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 63, 100, 235)),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: ''),
