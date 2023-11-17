@@ -1,5 +1,20 @@
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(
+    MaterialApp(
+      home: MyAppHome(),
+    ),
+  );
+}
+
+class MyAppHome extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MyHomePage(title: 'Flutter Drywall App');
+  }
+}
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
@@ -48,6 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             ListTile(
+              leading: Icon(Icons.people),
               title: Text('Ingresar pacientes'),
               onTap: () {
                 _onItemTapped(0);
@@ -55,6 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.assignment),
               title: Text('Ingresar datos del paciente'),
               onTap: () {
                 _onItemTapped(1);
@@ -62,7 +79,8 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-              title: Text('Page 3'),
+              leading: Icon(Icons.description),
+              title: Text('Historial del paciente'),
               onTap: () {
                 _onItemTapped(2);
                 Navigator.pop(context);
@@ -70,25 +88,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people),
-            label: 'Pacientes',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.assignment),
-            label: 'Datos Paciente',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.threesixty),
-            label: 'Page 3',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).colorScheme.inversePrimary,
-        onTap: _onItemTapped,
       ),
     );
   }
@@ -116,15 +115,7 @@ class Page3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('Contenido de Page 3'),
+      child: Text('Contenido de Historial del paciente'),
     );
   }
-}
-
-void main() {
-  runApp(
-    MaterialApp(
-      home: MyHomePage(title: 'Flutter Drywall Menu'),
-    ),
-  );
 }
