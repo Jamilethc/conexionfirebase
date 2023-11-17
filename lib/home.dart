@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text(
                 'Menu',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: const Color.fromARGB(255, 226, 165, 165),
                   fontSize: 30,
                 ),
               ),
