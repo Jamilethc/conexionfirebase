@@ -32,7 +32,6 @@ class _MyHomePageState extends State<MyHomePage> {
     PaginaInicio(),
     IngresarPacientes(),
     IngresarDatosPaciente(),
-    
   ];
 
   void _onItemTapped(int index) {
@@ -89,16 +88,14 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-<<<<<<< HEAD
-  leading: Icon(Icons.description),
-  title: Text('Queda Pendiente'),
-  onTap: () {
-    _showPendienteAlert(context);
-    Navigator.pop(context);
-  },
-),
-
-=======
+              leading: Icon(Icons.description),
+              title: Text('Queda Pendiente'),
+              onTap: () {
+                _showPendienteAlert(context);
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
               leading: Icon(Icons.description),
               title: Text('Historial del paciente'),
               onTap: () {
@@ -106,14 +103,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pop(context);
               },
             ),
->>>>>>> 65ef4f010b97d9597bbde2e612add695651c4fb7
           ],
         ),
       ),
     );
   }
 }
-
 
 class PaginaInicio extends StatelessWidget {
   @override
@@ -181,7 +176,6 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 }
-
 
 class IngresarPacientes extends StatefulWidget {
   @override
@@ -363,4 +357,3 @@ void _showPendienteAlert(BuildContext context) {
     },
   );
 }
-
