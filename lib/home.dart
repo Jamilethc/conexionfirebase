@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               leading: Icon(Icons.assignment),
-              title: Text('Historial de los  pacientes'),
+              title: Text('Ingresar datos del paciente'),
               onTap: () {
                 _onItemTapped(2);
                 Navigator.pop(context);
@@ -205,11 +205,30 @@ class _IngresarPacientesState extends State<IngresarPacientes> {
   }
 }
 
-class IngresarDatosPaciente extends StatelessWidget {
+class IngresarDatosPaciente extends StatefulWidget {
+  @override
+  _IngresarDatosPacienteState createState() => _IngresarDatosPacienteState();
+}
+
+class _IngresarDatosPacienteState extends State<IngresarDatosPaciente> {
+  late Future<List<Map<String, dynamic>>> _historialFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _historialFuture = getDatos();
+  }
+
+  Future<void> _actualizarHistorial() async {
+    setState(() {
+      _historialFuture = getDatos();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getDatos(),
+      future: _historialFuture,
       builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
@@ -233,7 +252,6 @@ class IngresarDatosPaciente extends StatelessWidget {
                       Text('Edad: ${paciente['edad']}'),
                       Text('Fecha de Ingreso: ${paciente['fechaIngreso']}'),
                       Text('Diagnóstico: ${paciente['diagnostico']}'),
-                      // Agrega aquí otros campos que quieras mostrar en la lista
                     ],
                   ),
                 ),
@@ -245,7 +263,14 @@ class IngresarDatosPaciente extends StatelessWidget {
     );
   }
 
-  getDatos() {}
+  Future<List<Map<String, dynamic>>> getDatos() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('pacientes').get();
+
+    return querySnapshot.docs
+        .map((documento) => documento.data() as Map<String, dynamic>)
+        .toList();
+  }
 }
 
 class Page3 extends StatelessWidget {
