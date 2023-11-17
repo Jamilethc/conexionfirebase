@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               leading: Icon(Icons.assignment),
-              title: Text('Ingresar datos del paciente'),
+              title: Text('Historial de los pacientes'),
               onTap: () {
                 _onItemTapped(2);
                 Navigator.pop(context);
@@ -89,15 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               leading: Icon(Icons.description),
-              title: Text('Queda Pendiente'),
-              onTap: () {
-                _showPendienteAlert(context);
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.description),
-              title: Text('Historial del paciente'),
+              title: Text('Chequeo de  mi Historial '),
               onTap: () {
                 _onItemTapped(3);
                 Navigator.pop(context);
