@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               leading: Icon(Icons.people),
-              title: Text('Ingresar pacientes'),
+              title: Text('Expediente'),
               onTap: () {
                 _onItemTapped(1);
                 Navigator.pop(context);
@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               leading: Icon(Icons.assignment),
-              title: Text('Ingresar datos del paciente'),
+              title: Text('Historial de los Pacientes'),
               onTap: () {
                 _onItemTapped(2);
                 Navigator.pop(context);
@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               leading: Icon(Icons.description),
-              title: Text('Historial del paciente'),
+              title: Text('queda  pendiente '),
               onTap: () {
                 _onItemTapped(3);
                 Navigator.pop(context);
@@ -120,6 +120,8 @@ class IngresarPacientes extends StatefulWidget {
 class _IngresarPacientesState extends State<IngresarPacientes> {
   final TextEditingController _nombreController = TextEditingController();
   final TextEditingController _edadController = TextEditingController();
+  final TextEditingController _fechaIngresoController = TextEditingController();
+  final TextEditingController _diagnosticoController = TextEditingController();
 
   // Referencia a la colección 'pacientes' en Firestore
   final CollectionReference _pacientesCollection =
@@ -128,8 +130,9 @@ class _IngresarPacientesState extends State<IngresarPacientes> {
   void _registrarPaciente() async {
     // Obtener los valores del formulario
     String nombre = _nombreController.text;
-    int edad = int.tryParse(_edadController.text) ??
-        0; // Convertir a entero, o usar 0 si no se puede
+    int edad = int.tryParse(_edadController.text) ?? 0;
+    String fechaIngreso = _fechaIngresoController.text;
+    String diagnostico = _diagnosticoController.text;
 
     // Validar que el nombre no esté vacío
     if (nombre.isNotEmpty) {
@@ -137,11 +140,15 @@ class _IngresarPacientesState extends State<IngresarPacientes> {
       await _pacientesCollection.add({
         'nombre': nombre,
         'edad': edad,
+        'fechaIngreso': fechaIngreso,
+        'diagnostico': diagnostico,
       });
 
       // Limpiar los campos después de guardar
       _nombreController.clear();
       _edadController.clear();
+      _fechaIngresoController.clear();
+      _diagnosticoController.clear();
 
       // Mostrar un mensaje de éxito
       ScaffoldMessenger.of(context).showSnackBar(
@@ -178,6 +185,16 @@ class _IngresarPacientesState extends State<IngresarPacientes> {
             keyboardType: TextInputType.number,
           ),
           SizedBox(height: 16),
+          TextField(
+            controller: _fechaIngresoController,
+            decoration: InputDecoration(labelText: 'Fecha de Ingreso'),
+          ),
+          SizedBox(height: 16),
+          TextField(
+            controller: _diagnosticoController,
+            decoration: InputDecoration(labelText: 'Diagnóstico'),
+          ),
+          SizedBox(height: 16),
           ElevatedButton(
             onPressed: _registrarPaciente,
             child: Text('Registrar Paciente'),
@@ -191,10 +208,44 @@ class _IngresarPacientesState extends State<IngresarPacientes> {
 class IngresarDatosPaciente extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Contenido de Ingresar Datos del Paciente'),
+    return FutureBuilder(
+      future: getDatos(),
+      builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Error al obtener los datos');
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Text('No hay datos disponibles');
+        } else {
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              Map<String, dynamic> paciente = snapshot.data![index];
+              return Card(
+                elevation: 3,
+                margin: EdgeInsets.all(8),
+                child: ListTile(
+                  title: Text('Nombre: ${paciente['nombre']}'),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Edad: ${paciente['edad']}'),
+                      Text('Fecha de Ingreso: ${paciente['fechaIngreso']}'),
+                      Text('Diagnóstico: ${paciente['diagnostico']}'),
+                      // Agrega aquí otros campos que quieras mostrar en la lista
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        }
+      },
     );
   }
+
+  getDatos() {}
 }
 
 class Page3 extends StatelessWidget {
