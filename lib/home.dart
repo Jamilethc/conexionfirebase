@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text(
                 'Menu',
                 style: TextStyle(
-                  color: const Color.fromARGB(255, 226, 165, 165),
+                  color: Colors.white,
                   fontSize: 30,
                 ),
               ),
@@ -81,16 +81,15 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               leading: Icon(Icons.assignment),
-              title: Text('Ingresar datos del paciente'),
+              title: Text('Historial de los pacientes'),
               onTap: () {
                 _onItemTapped(2);
                 Navigator.pop(context);
               },
             ),
-            
             ListTile(
               leading: Icon(Icons.description),
-              title: Text('Historial del paciente'),
+              title: Text('Chequeo de  mi Historial '),
               onTap: () {
                 _onItemTapped(3);
                 Navigator.pop(context);
@@ -184,7 +183,7 @@ class _IngresarPacientesState extends State<IngresarPacientes> {
   // Referencia a la colección 'pacientes' en Firestore
   final CollectionReference _pacientesCollection =
       FirebaseFirestore.instance.collection('pacientes');
-
+  //Referencia a la coleccion 'pacientes'
   void _registrarPaciente() async {
     // Obtener los valores del formulario
     String nombre = _nombreController.text;
@@ -331,3 +330,22 @@ class _IngresarDatosPacienteState extends State<IngresarDatosPaciente> {
   }
 }
 
+void _showPendienteAlert(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Queda Pendiente"),
+        content: Text("Esta funcionalidad está pendiente de implementación"),
+        actions: <Widget>[
+          TextButton(
+            child: Text("Cerrar"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
