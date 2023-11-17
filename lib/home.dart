@@ -180,7 +180,6 @@ class _IngresarPacientesState extends State<IngresarPacientes> {
   final TextEditingController _fechaIngresoController = TextEditingController();
   final TextEditingController _diagnosticoController = TextEditingController();
 
-  // Referencia a la colección 'pacientes' en Firestore
   final CollectionReference _pacientesCollection =
       FirebaseFirestore.instance.collection('pacientes');
   //Referencia a la coleccion 'pacientes'
