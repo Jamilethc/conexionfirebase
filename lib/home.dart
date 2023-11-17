@@ -81,15 +81,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               leading: Icon(Icons.assignment),
-              title: Text('Historial de los pacientes'),
+              title: Text('Ingresar datos del paciente'),
               onTap: () {
                 _onItemTapped(2);
                 Navigator.pop(context);
               },
             ),
+            
             ListTile(
               leading: Icon(Icons.description),
-              title: Text('Chequeo de  mi Historial '),
+              title: Text('Historial del paciente'),
               onTap: () {
                 _onItemTapped(3);
                 Navigator.pop(context);
@@ -330,22 +331,3 @@ class _IngresarDatosPacienteState extends State<IngresarDatosPaciente> {
   }
 }
 
-void _showPendienteAlert(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text("Queda Pendiente"),
-        content: Text("Esta funcionalidad está pendiente de implementación"),
-        actions: <Widget>[
-          TextButton(
-            child: Text("Cerrar"),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
